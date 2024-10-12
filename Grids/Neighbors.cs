@@ -25,6 +25,15 @@ public static class Cube
         new CubePos(-1, 0, 1)
   ];
 
+  public static readonly CubePos[] CUBE_DIAGONAL_DIRS = [
+    new(1, -2, 1),
+    new(2, -1, -1),
+    new(1, 1, -2),
+    new(-1, -1, 2),
+    new(-2, 1, 1),
+    new(-1, -1, 2),
+  ];
+
   public static CubePos CubeDirection(int dir)
   {
     return CUBE_DIRS[dir];
@@ -33,6 +42,10 @@ public static class Cube
   public static CubePos CubeNeighbor(CubePos origin, int dir)
   {
     return CUBE_DIRS[dir] + origin;
+  }
+
+  public static CubePos CubeDiagonalNeighbor(CubePos origin, int dir){
+    return CUBE_DIAGONAL_DIRS[dir] + origin;
   }
 }
 
@@ -144,4 +157,37 @@ public static class Offset
     }
     return new OffsetPos(origin.Q + diffs[0], origin.R + diffs[1]);
   }
+}
+
+public static class Double
+{
+  public static readonly DoublePos[] DOUBLE_WIDTH_DIRS = [
+    new DoublePos(-1, -1),
+    new DoublePos(1, -1),
+    new DoublePos(2, 0),
+    new DoublePos(1, 1),
+    new DoublePos(-1, 1),
+    new DoublePos(-2, 0),
+  ];
+
+  public static readonly DoublePos[] DOUBLE_HEIGHT_DIRS = [
+    new(0, -2),
+    new(1, -1),
+    new(1, 1),
+    new(0, 2),
+    new(-1, 1),
+    new(-1, -1),
+  ];
+
+  public static DoublePos DoubleNeighbor(DoublePos pos, int dir) {
+        switch (pos.DoubleType)
+        {
+            case DoubleType.Height:
+                return pos + DOUBLE_HEIGHT_DIRS[dir];
+            case DoubleType.Width:
+                return pos + DOUBLE_WIDTH_DIRS[dir];
+            default:
+                return new();
+        }
+    }
 }

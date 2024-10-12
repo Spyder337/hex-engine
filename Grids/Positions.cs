@@ -315,4 +315,12 @@ public class DoublePos
     }
     return new DoublePos(q, r, type);
   }
+
+  public static DoublePos operator +(DoublePos a, DoublePos b){
+    return new DoublePos(a.Q + b.Q, a.R + b.R);
+  }
+
+  public static DoublePos operator -(DoublePos a, DoublePos b){
+    return new DoublePos(a.Q - b.Q, a.R - b.R);
+  }
 }
