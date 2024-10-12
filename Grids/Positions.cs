@@ -22,7 +22,8 @@ public class OffsetPos
     /// </summary>
     public int R { get; set; }
 
-    public OffsetPos() { 
+    public OffsetPos()
+    {
         OffsetType = OffsetType.OddR;
         Q = 0;
         R = 0;
@@ -126,7 +127,7 @@ public class CubePos
         switch (pos.OffsetType)
         {
             case OffsetType.OddR:
-                q = pos.Q - (pos.R -  (pos.R & 1)) / 2;
+                q = pos.Q - (pos.R - (pos.R & 1)) / 2;
                 r = pos.R;
                 return new CubePos(q, r, -q - r);
             case OffsetType.EvenR:
@@ -161,12 +162,17 @@ public class CubePos
                 r = pos.R;
                 break;
         }
-        return new CubePos(q, r, -q-r);
+        return new CubePos(q, r, -q - r);
     }
 
     public static CubePos operator +(CubePos a, CubePos b)
     {
-        return CubePos(a.Q + b.Q, a.R + b.R, a.S + b.S);
+        return new CubePos(a.Q + b.Q, a.R + b.R, a.S + b.S);
+    }
+
+    public static CubePos operator -(CubePos a, CubePos b)
+    {
+        return new CubePos(a.Q - b.Q, a.R - b.R, a.S - b.S);
     }
 }
 
@@ -175,7 +181,8 @@ public class AxialPos
     public int Q { get; set; }
     public int R { get; set; }
 
-    public AxialPos() { 
+    public AxialPos()
+    {
         Q = 0;
         R = 0;
     }
@@ -233,6 +240,16 @@ public class AxialPos
         }
         return new AxialPos(q, r);
     }
+
+    public static AxialPos operator +(AxialPos pos1, AxialPos pos2)
+    {
+        return new AxialPos(pos1.Q + pos2.Q, pos1.R + pos2.R);
+    }
+
+    public static AxialPos operator -(AxialPos pos1, AxialPos pos2)
+    {
+        return new AxialPos(pos1.Q - pos2.Q, pos1.R - pos2.R);
+    }
 }
 
 public enum DoubleType
@@ -265,7 +282,8 @@ public class DoublePos
         DoubleType = doubleType;
     }
 
-    public static DoublePos FromAxial(AxialPos pos, DoubleType type) {
+    public static DoublePos FromAxial(AxialPos pos, DoubleType type)
+    {
         int q = 0, r = 0;
         switch (type)
         {
@@ -281,7 +299,8 @@ public class DoublePos
         return new DoublePos(q, r, type);
     }
 
-    public static DoublePos FromCube(CubePos pos, DoubleType type) {
+    public static DoublePos FromCube(CubePos pos, DoubleType type)
+    {
         int q = 0, r = 0;
         switch (type)
         {
